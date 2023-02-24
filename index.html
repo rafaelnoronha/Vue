@@ -10,41 +10,55 @@
 </head>
 <body class="vh-100">
     <div class="container">
-        <div id="app h-100">
+        <div id="app">
             <head>
                 <div class="row mt-3">
                     <div class="col-5">
                         <h3>Jogador</h3>
                         <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width: 50%"></div>
+                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" :class="{'bg-success': vidaJogador >= 20, 'bg-danger': vidaJogador < 20}" :style="{width: vidaJogador + '%'}"></div>
                         </div>
+                        <p class="text-center">{{ vidaJogador }}%</p>
                     </div>
 
-                    <div class="col-2 text-center d-flex justify-content-center align-items-end">
+                    <div class="col-2 text-center d-flex justify-content-center align-items-center">
                         <h3 class="m-0">VS</h3>
                     </div>
 
                     <div class="col-5 text-end">
                         <h3>Monstro</h3>
                         <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success ms-auto" style="width: 50%"></div>
+                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success ms-auto" :class="{'bg-success': vidaMonstro >= 20, 'bg-danger': vidaMonstro < 20}" :style="{width: vidaMonstro + '%'}"></div>
                         </div>
+                        <p class="text-center">{{ vidaMonstro }}%</p>
                     </div>
                 </div>
             </head>
 
-            <footer class="h-100 m-5">
+            <main class="h-100 m-5">
+                <h4 class="my-5 text-center text-success" v-show="status === 'finished'">Você Venceu!</h4>
+
                 <div class="d-flex justify-content-evenly">
-                    <button class="btn btn-primary px-5">Ataque</button>
-                    <button class="btn btn-primary px-5">Ataque Especial</button>
-                    <button class="btn btn-primary px-5">Curar</button>
-                    <button class="btn btn-primary px-5">Desistir</button>
+                    <button class="btn btn-success px-5" v-if="status === 'start' || status === 'finished'">Iniciar Jogo</button>
+                    <template v-else>
+                        <button class="btn btn-primary px-5">Ataque</button>
+                        <button class="btn btn-danger px-5">Ataque Especial</button>
+                        <button class="btn btn-success px-5">Curar</button>
+                        <button class="btn btn-warning px-5">Desistir</button>
+                    </template>
+                </div>
+            </main>
+
+            <footer class="mt-5">
+                <div class="card">
+                    <div class="card-body">
+                        <ul class="list-group">
+                            <li class="list-group-item bg-success-subtle">An item</li>
+                            <li class="list-group-item bg-danger-subtle">A second item</li>
+                        </ul>
+                    </div>
                 </div>
             </footer>
-
-            <main class="mt-5">
-                1
-            </main>
         </div>
     </div>
 
