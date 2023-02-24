@@ -39,22 +39,24 @@
                 <h4 class="my-5 text-center text-success" v-show="status === 'finished'">Você Venceu!</h4>
 
                 <div class="d-flex justify-content-evenly">
-                    <button class="btn btn-success px-5" v-if="status === 'start' || status === 'finished'">Iniciar Jogo</button>
+                    <button class="btn btn-success px-5"
+                        v-if="status === 'start' || status === 'finished'"
+                        @click="iniciar"
+                    >Iniciar Jogo</button>
                     <template v-else>
                         <button class="btn btn-primary px-5">Ataque</button>
                         <button class="btn btn-danger px-5">Ataque Especial</button>
                         <button class="btn btn-success px-5">Curar</button>
-                        <button class="btn btn-warning px-5">Desistir</button>
+                        <button class="btn btn-warning px-5" @click="reiniciar">Desistir</button>
                     </template>
                 </div>
             </main>
 
             <footer class="mt-5">
-                <div class="card">
+                <div class="card" v-show="logs.length">
                     <div class="card-body">
-                        <ul class="list-group">
-                            <li class="list-group-item bg-success-subtle">An item</li>
-                            <li class="list-group-item bg-danger-subtle">A second item</li>
+                        <ul class="list-group" v-for="(log, index) in logs" :key="index">
+                            <li class="list-group-item" :class="{'bg-success-subtle': index % 2 === 0, 'bg-danger-subtle': index % 2 !== 0}">{{ log }}</li>
                         </ul>
                     </div>
                 </div>
