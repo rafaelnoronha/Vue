@@ -36,7 +36,7 @@
             </head>
 
             <main class="h-100 m-5">
-                <h4 class="my-5 text-center text-success" v-show="status === 'finished'">Você Venceu!</h4>
+                <h4 :class="['my-5', 'text-center', { 'text-success': vidaJogador, 'text-danger': !vidaJogador }]" v-show="status === 'finished'">{{ resultado }}</h4>
 
                 <div class="d-flex justify-content-evenly">
                     <button class="btn btn-success px-5"
@@ -44,7 +44,7 @@
                         @click="iniciar"
                     >Iniciar Jogo</button>
                     <template v-else>
-                        <button class="btn btn-primary px-5">Ataque</button>
+                        <button class="btn btn-primary px-5" @click="ataqueJogador">Ataque</button>
                         <button class="btn btn-danger px-5">Ataque Especial</button>
                         <button class="btn btn-success px-5">Curar</button>
                         <button class="btn btn-warning px-5" @click="reiniciar">Desistir</button>
