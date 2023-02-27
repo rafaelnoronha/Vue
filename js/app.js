@@ -3,7 +3,7 @@ const { createApp } = Vue
 createApp( {
     data() {
         return {
-            status: 'start', // start | started | finished
+            status: 'start',
             vidaJogador: 100,
             vidaMonstro: 100,
             logs: []
@@ -28,14 +28,25 @@ createApp( {
             max = Math.floor( max )
             return Math.floor( Math.random() * ( max - min ) + min )
         },
-        ataqueJogador() {
-            const valorAtaqueJogador = this.random( 1, 10 )
+        ataqueJogador( valorMaximoAtaqueJogador=10 ) {
+            const valorAtaqueJogador = this.random( 1, valorMaximoAtaqueJogador )
             const valorAtaqueMonstro = this.random( 1, 15 )
 
             this.vidaMonstro -= valorAtaqueJogador
             this.vidaJogador -= valorAtaqueMonstro
 
             this.logs.push( `O jogador atacou com ${ valorAtaqueJogador }` )
+            this.logs.push( `O monstro atacou com ${ valorAtaqueMonstro }` )
+        },
+        curarJogador() {
+            const valorCuraJogador = this.random( 1, 15 )
+            const valorAtaqueMonstro = this.random( 1, 15 )
+
+            this.vidaMonstro -= 0
+            this.vidaJogador += valorCuraJogador
+            this.vidaJogador -= valorAtaqueMonstro
+
+            this.logs.push( `O jogador recuperou ${ valorCuraJogador } de vida` )
             this.logs.push( `O monstro atacou com ${ valorAtaqueMonstro }` )
         }
     },
@@ -57,6 +68,8 @@ createApp( {
             if ( newVidaJogador <= 0 ) {
                 this.vidaJogador = 0
                 this.status = 'finished'
+            } else if ( newVidaJogador >= 100 ) {
+                this.vidaJogador = 100
             }
         },
         vidaMonstro( newVidaMonstro, oldVidaMonstro ) {
